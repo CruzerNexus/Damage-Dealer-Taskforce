@@ -1,0 +1,32 @@
+const upgradeSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    upgradeType: {
+        type: String,
+        enum: upgradeTypeEnum,
+        required: true,
+    },
+    weapon: Object,
+    exhaust: {
+        type: Boolean,
+        default: false,
+    },
+    restriction: Object,
+    effect: {
+        type: String,
+        required: true,
+    },
+    pointValue: {
+        type: Number,
+        required: true,
+    },
+    cardImg: String,
+});
+
+Upgrade.virtual('units', {
+    ref: 'Unit',
+    localField: '_id',
+    foreignField: 'upgrades'
+});

@@ -1,0 +1,68 @@
+const unitSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    faction: {
+        type: String,
+        enum: factionsEnum,
+        required: true,
+    },
+    unique: {
+        type: Boolean,
+        default: false,
+    },
+    points: {
+        type: Number,
+        required: true,
+    },
+    rank: {
+        type: String,
+        enum: rankEnum,
+        required: true,
+    },
+    minis: {
+        type: Number,
+        required: true,
+    },
+    upgrades: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Upgrade',
+    }],
+    unitType: {
+        type: String,
+        enum: unitTypeEnum,
+        required: true,
+    },
+    unitKeywords:{
+        type: Array,
+    },
+    woundThreshold: {
+        type: Number,
+        default: 1,
+    },
+    courage: {
+        type: Number,
+    },
+    resilience: {
+        type: Number,
+    },
+    surge: {
+        type: Object,
+    },
+    speed: {
+        type: Number,
+        default: 2,
+    },
+    defenseDie: {
+        type: String,
+        enum: defenseDieEnum,
+        required: true,
+    },
+    weapons: {
+        type: Array,
+    },
+    cardImg: {
+        type: String,
+    },
+});
