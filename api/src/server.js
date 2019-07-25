@@ -2,10 +2,14 @@ const express = require("express");
 const { connectDatabase } = require("./database");
 const Unit = require("./models/Unit");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
+const cors = require("cors");
 
 connectDatabase();
 
 const app = express();
+app.use(morgan('tiny'));
+app.use(cors());
 
 app.post("/", async (req, res) => {
   const unit = new Unit({
