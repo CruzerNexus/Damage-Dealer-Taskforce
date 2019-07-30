@@ -20,7 +20,7 @@ const CreateList = () => {
         Unit: {
           Commander: [],
           Operative: [],
-          Core: [],
+          Corps: [],
           "Special Forces": [],
           Support: [],
           Heavy: [],

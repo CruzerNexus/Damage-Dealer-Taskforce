@@ -8,27 +8,20 @@ import { ScrollView } from 'react-native-gesture-handler';
 const Alter = ({index, rank}) => {
   const [alter, setAlter] = useState(false);
   const [list, setList] = useGlobal("currentList");
-  const card = list.cards[rank][index];
+  const card = list.cards.Unit[rank][index];
 
   const remove = () => {
-    setList({
-      ...list,
-      cards: {
-        ...list.cards,
-        [rank]: list.cards[rank].filter((c, i) => i !== index)
-      }
-    });
+    const newList = Object.assign({}, list)
+    newList.cards.Unit[rank].splice(index, 1);
+    setList(newList);
+
     setAlter(false);
   }
 
   const clone = () => {
-    setList({
-      ...list,
-      cards: {
-        ...list.cards,
-        [rank]: [...list.cards[rank], card]
-      }
-    });
+    const newList = Object.assign({}, list)
+    newList.cards.Unit[rank].push(card);
+    setList(newList);
   }
 
   const addUpgrades = () => {
@@ -50,12 +43,12 @@ const Alter = ({index, rank}) => {
   )
 }
 
-const Choice = ({card, onPress}) => {
+const Choice = ({card, rank, onPress}) => {
   const [list, setList] = useGlobal("currentList");
 
   const count = () => {
     let counter = 0;
-    list.cards.Unit.forEach((c) => {
+    list.cards.Unit[rank].forEach((c) => {
       if (card.Name === c.Name ){
         counter++;
       }
@@ -76,13 +69,10 @@ const CardPicker = ({cards, rank}) => {
   const [list, setList] = useGlobal("currentList");
 
   const pickCard = (card) => {
-    setList({
-      ...list,
-      cards: {
-        ...list.cards,
-        [rank]: [...list.cards.Unit, card]
-      }
-    })
+    const newList = Object.assign({}, list)
+    newList.cards.Unit[rank].push(card)
+
+    setList(newList);
   }
   
 
@@ -92,14 +82,14 @@ const CardPicker = ({cards, rank}) => {
         <ScrollView>
           <Text>{rank}</Text>
           {cards && cards.map((card) => (
-            <Choice key={card.Name} card={card} onPress={() => pickCard(card)} />
+            <Choice rank={rank} key={card.Name} card={card} onPress={() => pickCard(card)} />
           ))}
           <Button title="Done" onPress={() => setShow(false)} />
         </ScrollView>
       </Overlay>
       <ScrollView>
         <Text style={{ color: "#fff"}}>{rank}</Text>
-          {list.cards.Unit
+          {list.cards.Unit[rank]
           .filter((card => card.Rank === rank))
           .map((card, index) => (
             <View key={card.Name + index} style={{ backgroundColor: "#2B1C8C", color: "#fff", justifyContent: "space-between", flexDirection: "row"}}>
@@ -110,7 +100,6 @@ const CardPicker = ({cards, rank}) => {
                 {card.Cost}pts
               </Text>
               <Alter index={index} rank={card.Rank} />
-              <Text>{index}</Text>
             </View>
           ))}
         <Button
