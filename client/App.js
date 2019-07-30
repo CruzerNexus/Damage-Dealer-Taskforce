@@ -5,11 +5,13 @@ import { NativeRouter, Route, Link } from "react-router-native";
 import axios from "axios";
 
 import Catalogue from "./src/pages/catalogue";
-import Create from "./src/pages/createList"
+import CreateList from "./src/pages/createList";
+import EditList from "./src/pages/editList";
 
 setGlobal({
   cards: [],
-  list: [],
+  lists: [],
+  currentList: {}
 });
 
 const Home = () => {
@@ -79,8 +81,9 @@ export default function App() {
           }}
         />
         <Route exact path="/" component={Home} />
-        <Route path="/new" component={Create} />
+        <Route path="/new" component={CreateList} />
         {/* <Route path="/lists" component={Lists} /> */}
+        <Route path="/edit" component={EditList} />
         <Route path="/catalogue" component={Catalogue} />
       </View>
       
