@@ -17,6 +17,11 @@ const EditList = () => {
 
     ranks.map((rank) => {
       total += list.cards.Unit[rank].reduce((total, card) => total + parseInt(card.Cost), 0)
+      list.cards.Unit[rank].map((card) => {
+        card.CurrentUpgrades.map((upgrade) => {
+          total += upgrade.Cost
+        })
+      })
     })
 
     return total
@@ -29,7 +34,11 @@ const EditList = () => {
       <Text h2 h2Style={{color:"#fff"}}>{calcTotal()}/{list.points}</Text>
       {/* <ScrollView> */}
         {ranks.map((rank) => (
-          <CardPicker key={rank} rank={rank} cards={cards.unitCards.filter((card) => (card.Rank === rank && card.Faction === list.faction))}/>
+          <CardPicker 
+          key={rank} 
+          rank={rank} 
+          cards={cards.unitCards.filter((card) => (card.Rank === rank && card.Faction === list.faction))}
+          />
         ))}
       {/* </ScrollView> */}
 
