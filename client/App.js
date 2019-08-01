@@ -2,6 +2,7 @@ import React, { setGlobal, useGlobal, useEffect } from "reactn";
 import { StyleSheet, View, ImageBackground, Text } from "react-native";
 import { Header, Button } from "react-native-elements";
 import { NativeRouter, Route, Link } from "react-router-native";
+// import AsyncStorage from '@react-native-community/async-storage';
 import axios from "axios";
 
 import Catalogue from "./src/pages/catalogue";
@@ -56,6 +57,12 @@ const Home = () => {
   );
 };
 
+const HomeIcon = () => (
+  <Link to="/">
+    <Text style={{color:"#fff"}}>Home</Text>
+  </Link>
+)
+
 export default function App() {
   const [cards, setCards] = useGlobal("cards");
 
@@ -74,7 +81,7 @@ export default function App() {
       <View style={styles.overall}>
         <Header
           backgroundColor="#3825B8"
-          leftComponent={{ icon: "menu", color: "#fff" }}
+          leftComponent={<HomeIcon />}
           centerComponent={{
             text: "Damage-Dealer: Taskforce",
             style: { color: "#fff", fontSize: 18 }

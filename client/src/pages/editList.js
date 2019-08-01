@@ -3,10 +3,12 @@ import { View, StyleSheet } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import NestedListView, { NestedRow } from 'react-native-nested-listview';
 
-import CardPicker from '../components/CardPicker'
+import CardPicker from '../components/CardPicker';
 import { ScrollView } from 'react-native-gesture-handler';
+// import CommandPicker from '../components/CommandPicker';
 
 const ranks = ["Commander", "Operative", "Corps", "Special Forces", "Support", "Heavy"]
+const pips = [1, 2, 3, 4]
 
 const EditList = () => {
   const [list, setList] = useGlobal("currentList");
@@ -40,6 +42,13 @@ const EditList = () => {
           cards={cards.unitCards.filter((card) => (card.Rank === rank && card.Faction === list.faction))}
           />
         ))}
+        {/* {pips.map((pip) => (
+          <CommandPicker
+          key={pip}
+          pip={pip}
+          cards={cards.commandCards.filter((card) => ( card.Pips === pip && (card.Faction === list.faction || card.Faction === "Neutral") ))}
+          />
+        ))} */}
       {/* </ScrollView> */}
 
     </ScrollView>
